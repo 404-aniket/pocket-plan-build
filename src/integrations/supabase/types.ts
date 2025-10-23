@@ -14,7 +14,266 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      adherence_logs: {
+        Row: {
+          created_at: string
+          id: string
+          medication_tray_id: string
+          notes: string | null
+          scheduled_time: string
+          status: string
+          taken_time: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          medication_tray_id: string
+          notes?: string | null
+          scheduled_time: string
+          status: string
+          taken_time?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          medication_tray_id?: string
+          notes?: string | null
+          scheduled_time?: string
+          status?: string
+          taken_time?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "adherence_logs_medication_tray_id_fkey"
+            columns: ["medication_tray_id"]
+            isOneToOne: false
+            referencedRelation: "medication_trays"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "adherence_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emergency_contacts: {
+        Row: {
+          created_at: string
+          id: string
+          is_primary: boolean | null
+          name: string
+          phone: string
+          relationship: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          name: string
+          phone: string
+          relationship?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          name?: string
+          phone?: string
+          relationship?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_contacts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      medication_trays: {
+        Row: {
+          afternoon_quantity: number | null
+          afternoon_time: string | null
+          created_at: string
+          evening_quantity: number | null
+          evening_time: string | null
+          id: string
+          is_active: boolean | null
+          medicine_name: string
+          morning_quantity: number | null
+          morning_time: string | null
+          notes: string | null
+          tray_number: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          afternoon_quantity?: number | null
+          afternoon_time?: string | null
+          created_at?: string
+          evening_quantity?: number | null
+          evening_time?: string | null
+          id?: string
+          is_active?: boolean | null
+          medicine_name: string
+          morning_quantity?: number | null
+          morning_time?: string | null
+          notes?: string | null
+          tray_number: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          afternoon_quantity?: number | null
+          afternoon_time?: string | null
+          created_at?: string
+          evening_quantity?: number | null
+          evening_time?: string | null
+          id?: string
+          is_active?: boolean | null
+          medicine_name?: string
+          morning_quantity?: number | null
+          morning_time?: string | null
+          notes?: string | null
+          tray_number?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "medication_trays_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          allergies: string[] | null
+          created_at: string
+          date_of_birth: string | null
+          email: string
+          full_name: string | null
+          id: string
+          medical_conditions: string[] | null
+          phone: string | null
+          profile_picture_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          allergies?: string[] | null
+          created_at?: string
+          date_of_birth?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          medical_conditions?: string[] | null
+          phone?: string | null
+          profile_picture_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          allergies?: string[] | null
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          medical_conditions?: string[] | null
+          phone?: string | null
+          profile_picture_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reminder_settings: {
+        Row: {
+          advance_reminder_minutes: number | null
+          created_at: string
+          id: string
+          notification_enabled: boolean | null
+          notification_sound: string | null
+          snooze_duration_minutes: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          advance_reminder_minutes?: number | null
+          created_at?: string
+          id?: string
+          notification_enabled?: boolean | null
+          notification_sound?: string | null
+          snooze_duration_minutes?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          advance_reminder_minutes?: number | null
+          created_at?: string
+          id?: string
+          notification_enabled?: boolean | null
+          notification_sound?: string | null
+          snooze_duration_minutes?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reminder_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      schedules: {
+        Row: {
+          created_at: string
+          end_date: string
+          id: string
+          schedule_data: Json
+          start_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_date: string
+          id?: string
+          schedule_data: Json
+          start_date: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string
+          id?: string
+          schedule_data?: Json
+          start_date?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "schedules_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
